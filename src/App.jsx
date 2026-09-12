@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { useAuth } from './lib/AuthContext'
 import Login from './components/Login'
 import Layout from './components/Layout'
 import GestionUsuarios from './components/GestionUsuarios'
+import Lotes from './components/Lotes'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin } = useAuth()
+  const [vista, setVista] = useState('lotes')
 
   if (cargando) {
     return (
@@ -14,10 +17,8 @@ export default function App() {
     )
   }
 
-  // Sin sesión → login
   if (!session) return <Login />
 
-  // Con sesión pero sin perfil cargado (o inactivo)
   if (!perfil) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -36,18 +37,32 @@ export default function App() {
     )
   }
 
+  // Pestañas disponibles según rol
+  const pestanas = [
+    { id: 'lotes', etiqueta: 'Lotes', visible: true },
+    { id: 'usuarios', etiqueta: 'Usuarios', visible: esAdmin },
+  ].filter((p) => p.visible)
+
   return (
     <Layout>
-      {esAdmin ? (
-        <GestionUsuarios />
-      ) : (
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Bienvenido</h2>
-          <p className="text-gray-600 text-sm">
-            La app está en construcción. Pronto vas a ver aquí los módulos según tu rol.
-          </p>
-        </div>
-      )}
+      <nav className="flex gap-1 mb-6 border-b border-gray-200">
+        {pestanas.map((p) => (
+          <button
+            key={p.id}
+            onClick={() => setVista(p.id)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition ${
+              vista === p.id
+                ? 'border-green-600 text-green-700'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            {p.etiqueta}
+          </button>
+        ))}
+      </nav>
+
+      {vista === 'lotes' && <Lotes />}
+      {vista === 'usuarios' && esAdmin && <GestionUsuarios />}
     </Layout>
   )
 }
