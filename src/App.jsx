@@ -4,10 +4,11 @@ import Login from './components/Login'
 import Layout from './components/Layout'
 import GestionUsuarios from './components/GestionUsuarios'
 import Lotes from './components/Lotes'
+import Cosecha from './components/Cosecha'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin } = useAuth()
-  const [vista, setVista] = useState('lotes')
+  const [vista, setVista] = useState('cosecha')
 
   if (cargando) {
     return (
@@ -39,6 +40,7 @@ export default function App() {
 
   // Pestañas disponibles según rol
   const pestanas = [
+    { id: 'cosecha', etiqueta: 'Cosecha', visible: true },
     { id: 'lotes', etiqueta: 'Lotes', visible: true },
     { id: 'usuarios', etiqueta: 'Usuarios', visible: esAdmin },
   ].filter((p) => p.visible)
@@ -61,6 +63,7 @@ export default function App() {
         ))}
       </nav>
 
+      {vista === 'cosecha' && <Cosecha />}
       {vista === 'lotes' && <Lotes />}
       {vista === 'usuarios' && esAdmin && <GestionUsuarios />}
     </Layout>
