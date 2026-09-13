@@ -10,6 +10,7 @@ import Costos from './components/Costos'
 import Mecanizacion from './components/Mecanizacion'
 import DashboardGastos from './components/DashboardGastos'
 import Nomina from './components/Nomina'
+import Ventas from './components/Ventas'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin, puedeVerFinanzas } = useAuth()
@@ -47,6 +48,7 @@ export default function App() {
   const pestanas = [
     { id: 'cosecha', etiqueta: 'Cosecha', visible: true },
     { id: 'dashboard', etiqueta: 'Gastos', visible: puedeVerFinanzas },
+    { id: 'ventas', etiqueta: 'Ventas y P&L', visible: puedeVerFinanzas },
     { id: 'empaque', etiqueta: 'Empaque', visible: puedeVerFinanzas },
     { id: 'costos', etiqueta: 'Costos', visible: puedeVerFinanzas },
     { id: 'mecanizacion', etiqueta: 'Mecanización', visible: puedeVerFinanzas },
@@ -75,6 +77,7 @@ export default function App() {
 
       {vista === 'cosecha' && <Cosecha />}
       {vista === 'dashboard' && puedeVerFinanzas && <DashboardGastos />}
+      {vista === 'ventas' && puedeVerFinanzas && <Ventas />}
       {vista === 'empaque' && puedeVerFinanzas && <Empaque />}
       {vista === 'costos' && puedeVerFinanzas && <Costos />}
       {vista === 'mecanizacion' && puedeVerFinanzas && <Mecanizacion />}
