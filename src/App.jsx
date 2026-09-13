@@ -11,6 +11,7 @@ import Mecanizacion from './components/Mecanizacion'
 import DashboardGastos from './components/DashboardGastos'
 import Nomina from './components/Nomina'
 import Ventas from './components/Ventas'
+import Fertilizacion from './components/Fertilizacion'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin, puedeVerFinanzas } = useAuth()
@@ -47,6 +48,7 @@ export default function App() {
   // Pestañas disponibles según rol
   const pestanas = [
     { id: 'cosecha', etiqueta: 'Cosecha', visible: true },
+    { id: 'fertilizacion', etiqueta: 'Fertilización', visible: true },
     { id: 'dashboard', etiqueta: 'Gastos', visible: puedeVerFinanzas },
     { id: 'ventas', etiqueta: 'Ventas y P&L', visible: puedeVerFinanzas },
     { id: 'empaque', etiqueta: 'Empaque', visible: puedeVerFinanzas },
@@ -76,6 +78,7 @@ export default function App() {
       </nav>
 
       {vista === 'cosecha' && <Cosecha />}
+      {vista === 'fertilizacion' && <Fertilizacion />}
       {vista === 'dashboard' && puedeVerFinanzas && <DashboardGastos />}
       {vista === 'ventas' && puedeVerFinanzas && <Ventas />}
       {vista === 'empaque' && puedeVerFinanzas && <Empaque />}
