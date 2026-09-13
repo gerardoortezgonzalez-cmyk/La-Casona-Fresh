@@ -9,6 +9,7 @@ import Empaque from './components/Empaque'
 import Costos from './components/Costos'
 import Mecanizacion from './components/Mecanizacion'
 import DashboardGastos from './components/DashboardGastos'
+import Nomina from './components/Nomina'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin, puedeVerFinanzas } = useAuth()
@@ -49,6 +50,7 @@ export default function App() {
     { id: 'empaque', etiqueta: 'Empaque', visible: puedeVerFinanzas },
     { id: 'costos', etiqueta: 'Costos', visible: puedeVerFinanzas },
     { id: 'mecanizacion', etiqueta: 'Mecanización', visible: puedeVerFinanzas },
+    { id: 'nomina', etiqueta: 'Nómina', visible: puedeVerFinanzas },
     { id: 'lotes', etiqueta: 'Lotes', visible: true },
     { id: 'usuarios', etiqueta: 'Usuarios', visible: esAdmin },
   ].filter((p) => p.visible)
@@ -76,6 +78,7 @@ export default function App() {
       {vista === 'empaque' && puedeVerFinanzas && <Empaque />}
       {vista === 'costos' && puedeVerFinanzas && <Costos />}
       {vista === 'mecanizacion' && puedeVerFinanzas && <Mecanizacion />}
+      {vista === 'nomina' && puedeVerFinanzas && <Nomina />}
       {vista === 'lotes' && <Lotes />}
       {vista === 'usuarios' && esAdmin && <GestionUsuarios />}
     </Layout>
