@@ -6,6 +6,7 @@ import GestionUsuarios from './components/GestionUsuarios'
 import Lotes from './components/Lotes'
 import Cosecha from './components/Cosecha'
 import Empaque from './components/Empaque'
+import Costos from './components/Costos'
 
 export default function App() {
   const { session, perfil, cargando, esAdmin, puedeVerFinanzas } = useAuth()
@@ -43,6 +44,7 @@ export default function App() {
   const pestanas = [
     { id: 'cosecha', etiqueta: 'Cosecha', visible: true },
     { id: 'empaque', etiqueta: 'Empaque', visible: puedeVerFinanzas },
+    { id: 'costos', etiqueta: 'Costos', visible: puedeVerFinanzas },
     { id: 'lotes', etiqueta: 'Lotes', visible: true },
     { id: 'usuarios', etiqueta: 'Usuarios', visible: esAdmin },
   ].filter((p) => p.visible)
@@ -67,6 +69,7 @@ export default function App() {
 
       {vista === 'cosecha' && <Cosecha />}
       {vista === 'empaque' && puedeVerFinanzas && <Empaque />}
+      {vista === 'costos' && puedeVerFinanzas && <Costos />}
       {vista === 'lotes' && <Lotes />}
       {vista === 'usuarios' && esAdmin && <GestionUsuarios />}
     </Layout>
